@@ -65,7 +65,8 @@ const loadPopularMovies = async () => {
     const data = await fetchData('/movie/popular');
     if (!data) return;
 
-    elements.popularMovies.innerHTML = data.results
+    const moviesToShow = data.results.slice(0, 18);
+    elements.popularMovies.innerHTML = moviesToShow
         .map(movie => `
             <div class="movie-card" data-movie-id="${movie.id}">
                 <img src="${getImageUrl(movie.poster_path)}" 
@@ -77,21 +78,87 @@ const loadPopularMovies = async () => {
                 </div>
             </div>
         `).join('');
-};
 
+    // Agrega event listeners a las tarjetas de películas
+    const movieCards = document.querySelectorAll('.movie-card');
+    movieCards.forEach(card => {
+        card.addEventListener('click', () => {
+            showMovieDetails(card.dataset.movieId);
+        });
+    });
+};
 const loadGenres = async () => {
     const data = await fetchData('/genre/movie/list');
     if (!data) return;
 
     state.genres = data.genres;
-    elements.genresList.innerHTML = data.genres
-        .map(genre => `
-            <button class="genre-button" data-genre-id="${genre.id}">
-                ${genre.name}
-            </button>
-        `).join('');
-};
+    elements.genresList.innerHTML = `
+        <button class="genre-button" data-genre-id="all">
+            Todos
+        </button>
+        ${data.genres
+            .map(genre => `
+                <button class="genre-button" data-genre-id="${genre.id}">
+                    ${genre.name}
+                </button>
+            `).join('')}
+    `;
 
+    // Agrega event listeners a los botones de género
+    const genreButtons = document.querySelectorAll('.genre-button');
+    genreButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const genreId = button.dataset.genreId;
+            if (genreId === 'all') {
+                loadPopularMovies(); // Vuelve a cargar todas las películas
+            } else {
+                filterMoviesByGenre(genreId);
+            }
+        });
+    });
+};
+//nuevo script
+const filterMoviesByGenre = async (genreId) => {
+    const data = await fetchData(`/discover/movie?with_genres=${genreId}`);
+    if (!data) return;
+    const moviesToShow = data.results.slice(0, 18);
+
+    // Limpia el contenedor de películas populares
+    elements.popularMovies.innerHTML = '';
+
+    // Muestra las películas filtradas
+    elements.popularMovies.innerHTML = moviesToShow
+        .map(movie => `
+            <div class="movie-card" data-movie-id="${movie.id}">
+                <img src="${getImageUrl(movie.poster_path)}" 
+                     alt="${movie.title}"
+                     loading="lazy">
+                <div class="movie-card__info">
+                    <h3>${movie.title}</h3>
+                    <p>${movie.overview.slice(0, 100)}...</p>
+                </div>
+            </div>
+        `).join('');
+
+    // Resalta el botón del género seleccionado
+    const genreButtons = document.querySelectorAll('.genre-button');
+    genreButtons.forEach(button => {
+        if (button.dataset.genreId === genreId) {
+            button.classList.add('active');
+        } else {
+            button.classList.remove('active');
+        }
+    });
+
+    // Agrega event listeners a las nuevas tarjetas de películas
+    const movieCards = document.querySelectorAll('.movie-card');
+    movieCards.forEach(card => {
+        card.addEventListener('click', () => {
+            showMovieDetails(card.dataset.movieId);
+        });
+    });
+};
+//termina codigo
 const showMovieDetails = async (movieId) => {
     const data = await fetchData(`/movie/${movieId}`);
     if (!data) return;

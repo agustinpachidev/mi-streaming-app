@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Plataforma de streaming con las últimas películas y series">
     <title>StreamFlix</title>
+    <link rel="icon" href="images/popcorn.png" type="image/png">
+
     <!-- Estilos CSS -->
     <link rel="stylesheet" href="css/styles.css">
     <!-- Font Awesome para íconos -->
@@ -43,10 +45,11 @@
         <!-- Hero Section -->
         <section class="hero" aria-label="Destacado">
             <div class="hero__content">
+                <div id="featuredMovies" class="featured-movies"></div>
                 <!-- Se llenará dinámicamente con JS -->
             </div>
         </section>
-
+        
         <!-- Trending Section -->
         <section class="trending" aria-label="Tendencias">
             <h2>Tendencias</h2>
@@ -54,6 +57,13 @@
                 <!-- Se llenará dinámicamente con JS -->
             </div>
         </section>
+        <!-- Genres -->
+        <section class="genres" aria-label="Géneros">
+            <h2>Explora por Género</h2>
+            <div class="genres-grid" id="genresList">
+                <!-- Se llenará dinámicamente con JS -->
+            </div>
+        </section>   
 
         <!-- Popular Movies -->
         <section class="movies" aria-label="Películas populares">
@@ -63,13 +73,7 @@
             </div>
         </section>
 
-        <!-- Genres -->
-        <section class="genres" aria-label="Géneros">
-            <h2>Explora por Género</h2>
-            <div class="genres-grid" id="genresList">
-                <!-- Se llenará dinámicamente con JS -->
-            </div>
-        </section>
+
     </main>
 
     <!-- Movie Detail Modal -->
