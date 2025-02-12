@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plataforma de streaming con las últimas películas y series">
+    <title>StreamFlix</title>
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header con navegación -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav__logo">
+                <h1>StreamFlix</h1>
+            </div>
+            <div class="nav__menu">
+                <ul class="nav__list">
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#series">Series</a></li>
+                    <li><a href="#movies">Películas</a></li>
+                </ul>
+            </div>
+            <div class="nav__actions">
+                <div class="search-bar">
+                    <input type="search" placeholder="Buscar títulos..." aria-label="Buscar contenido">
+                    <button type="button" aria-label="Iniciar búsqueda">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <button class="theme-toggle" aria-label="Cambiar tema">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" aria-label="Destacado">
+            <div class="hero__content">
+                <!-- Se llenará dinámicamente con JS -->
+            </div>
+        </section>
+
+        <!-- Trending Section -->
+        <section class="trending" aria-label="Tendencias">
+            <h2>Tendencias</h2>
+            <div class="carousel" id="trendingCarousel">
+                <!-- Se llenará dinámicamente con JS -->
+            </div>
+        </section>
+
+        <!-- Popular Movies -->
+        <section class="movies" aria-label="Películas populares">
+            <h2>Películas Populares</h2>
+            <div class="movies-grid" id="popularMovies">
+                <!-- Se llenará dinámicamente con JS -->
+            </div>
+        </section>
+
+        <!-- Genres -->
+        <section class="genres" aria-label="Géneros">
+            <h2>Explora por Género</h2>
+            <div class="genres-grid" id="genresList">
+                <!-- Se llenará dinámicamente con JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Movie Detail Modal -->
+    <div class="modal" id="movieModal" aria-hidden="true">
+        <div class="modal__content">
+            <button class="modal__close" aria-label="Cerrar modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal__body">
+                <!-- Se llenará dinámicamente con JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 StreamFlix. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js" type="module"></script>
+</body>
+</html>

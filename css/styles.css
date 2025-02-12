@@ -1,0 +1,394 @@
+/* Variables y Reset */
+:root {
+    --primary-color: #e50914;
+    --text-color: #333;
+    --bg-color: #fff;
+    --secondary-bg: #f5f5f5;
+    --modal-bg: rgba(0, 0, 0, 0.8);
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --border-radius: 4px;
+    --transition: all 0.3s ease;
+}
+
+/* Tema Oscuro */
+.dark-theme {
+    --text-color: #fff;
+    --bg-color: #141414;
+    --secondary-bg: #1f1f1f;
+    --shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Reset y Estilos Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: var(--transition);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Header y Navegación */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-color);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow);
+    z-index: 1000;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav__logo h1 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.nav__list {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-md);
+}
+
+.nav__list a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.nav__list a:hover {
+    color: var(--primary-color);
+}
+
+/* Barra de Búsqueda */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+}
+
+.search-bar input {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    color: var(--text-color);
+    width: 200px;
+}
+
+.search-bar button {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* Botón de Tema */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: var(--spacing-sm);
+}
+
+/* Hero Section */
+.hero {
+    margin-top: 70px;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: var(--spacing-lg);
+}
+
+.hero__content {
+    max-width: 600px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Carrusel */
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    width: 200px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.carousel-item:hover {
+    transform: scale(1.05);
+}
+
+.carousel-item__info {
+    padding: var(--spacing-sm);
+}
+
+/* Grid de Películas */
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+}
+
+.movie-card {
+    background-color: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.movie-card__info {
+    padding: var(--spacing-md);
+}
+
+/* Grid de Géneros */
+.genres-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+}
+
+.genre-button {
+    background-color: var(--secondary-bg);
+    border: none;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-color);
+}
+
+.genre-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--modal-bg);
+    z-index: 2000;
+    padding: var(--spacing-lg);
+}
+
+.modal[aria-hidden="false"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__content {
+    background-color: var(--bg-color);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    max-width: 800px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal__close {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: var(--spacing-lg);
+    background-color: var(--secondary-bg);
+    margin-top: var(--spacing-lg);
+}
+
+/* Utilidades */
+.rating {
+    color: #ffd700;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .nav__menu {
+        display: none;
+    }
+
+    .search-bar input {
+        width: 150px;
+    }
+
+    .hero {
+        height: 40vh;
+    }
+
+    .modal__content {
+        width: 95%;
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .movies-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .carousel-item {
+        width: 150px;
+    }
+
+    .search-bar input {
+        width: 120px;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal[aria-hidden="false"] .modal__content {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Accesibilidad */
+:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Agregar estos estilos a tu archivo CSS existente */
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-top: 0.5rem;
+    display: none;
+    z-index: 1000;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.search-results__content {
+    padding: var(--spacing-sm);
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.search-result-item:hover {
+    background-color: var(--secondary-bg);
+}
+
+.search-result-item img {
+    width: 45px;
+    height: 68px;
+    object-fit: cover;
+    margin-right: var(--spacing-sm);
+    border-radius: calc(var(--border-radius) / 2);
+}
+
+.search-result-item__info {
+    flex: 1;
+}
+
+.search-result-item__info h4 {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.search-result-item__info span {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.search-results__message {
+    padding: var(--spacing-md);
+    text-align: center;
+    color: #666;
+}
+
+.dark-theme .search-result-item__info span {
+    color: #999;
+}
