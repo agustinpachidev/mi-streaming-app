@@ -1,18 +1,15 @@
 # 🎬📺 **Proyecto de Página Web de Películas y Series** 🎬📺
+- 🎥 **Películas de estreno**
+- 📈 **Series en tendencias**
+- 🌟 **Películas y series populares**
 
-
-Utiliza la API de TMDB para filtrar:
-
-🎥 Películas de estreno
-📈 Series en tendencias
-🌟 Películas y series populares
 La página contiene:
 
-🍔 Menú de 3 opciones
-🔍 Barra de búsqueda funcional
-🎭 Slots de género de películas
+- 🍔 **Menú de 3 opciones**
+- 🔍 **Barra de búsqueda funcional**
+- 🎭 **Slots de género de películas**
 
-Incorpora una ventana Modal para filtrar la información y mostrar la portada de la película o serie seleccionada. 🎞️
+Incorpora una **ventana Modal** para filtrar la información y mostrar la portada de la película o serie seleccionada. 🎞️
 
 La página fue diseñada de la siguiente manera:
 
