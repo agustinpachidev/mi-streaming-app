@@ -1,4 +1,5 @@
-🎬📺Proyecto de página web de películas y series 🎬📺
+# 🎬📺 **Proyecto de Página Web de Películas y Series** 🎬📺
+
 
 Utiliza la API de TMDB para filtrar:
 
