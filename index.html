@@ -17,11 +17,13 @@
     <header class="header">
         <nav class="nav">
             <div class="nav__logo">
-                <h1>StreamFlix</h1>
+                <a href="/index.html">
+                    <img src="/images/LOGOSTREAMFLIX.png" alt="StreamFlix Logo">
+                </a>
             </div>
             <div class="nav__menu">
                 <ul class="nav__list">
-                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="/index.html">Inicio</a></li>
                     <li><a href="#series">Series</a></li>
                     <li><a href="#movies">Películas</a></li>
                 </ul>
@@ -43,13 +45,10 @@
     <!-- Main content -->
     <main>
         <!-- Hero Section -->
-        <section class="hero" aria-label="Destacado">
-            <div class="hero__content">
-                <div id="featuredMovies" class="featured-movies"></div>
-                <!-- Se llenará dinámicamente con JS -->
-            </div>
+        <section id="featuredMovies" class="hero-section">
+            <!-- El contenido se insertará mediante JavaScript -->
         </section>
-        
+
         <!-- Trending Section -->
         <section class="trending" aria-label="Tendencias">
             <h2>Tendencias</h2>

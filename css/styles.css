@@ -118,19 +118,142 @@ img {
 /* Hero Section */
 .hero {
     margin-top: 70px;
-    height: 60vh;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: flex-end;
-    padding: var(--spacing-lg);
+    height: 70vh; /* Aumentamos la altura */
+    position: relative;
+    overflow: hidden;
+}
+/* Contenedor del carrusel */
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+}
+/* Estilos para cada slide */
+.hero-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.hero-slide.active {
+    opacity: 1;
+    display: block;
+}
+/* Imagen de fondo */
+.hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
+/* Overlay con gradiente */
+.hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3));
+}
+
+.featuredMovies {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+/* Controles del carrusel */
+.hero-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 1rem;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
 .hero__content {
     max-width: 600px;
     color: #fff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
+
+/* Posiciona los botones a los lados */
+.hero-control.prev {
+    left: 10px;
+}
+
+.hero-control.next {
+    right: 10px;
+}
+
+/* Asegura que el contenedor principal sea relativo */
+.hero-section {
+    position: relative;
+}
+
+
+.hero-movie {
+    flex: 0 0 auto;
+    width: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.hero-movie img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+/* seccion HERO */
+.hero-movie__info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+    padding: 1rem;
+    color: white;
+}
+
+.hero-movie__info h3 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.hero-movie__info p {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hero-movie__button {
+    background-color: #e50914;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.hero-movie__button:hover {
+    background-color: #f40612;
+}
+/* fin hero */
 
 /* Carrusel */
 .carousel {
@@ -184,6 +307,12 @@ img {
 
 .movie-card__info {
     padding: var(--spacing-md);
+    text-align: center; 
+}
+.movie-card__info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-color);
 }
 
 /* Grid de Géneros */
@@ -237,6 +366,34 @@ img {
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
+}
+
+.modal__content img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+}
+
+.modal__content h2 {
+    margin: var(--spacing-md) 0;
+    font-size: 2rem;
+}
+
+.modal__content p {
+    margin: var(--spacing-md) 0;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.modal__info {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.modal__info span {
+    font-size: 0.9rem;
+    color: var(--text-color);
 }
 
 .modal__close {
@@ -391,4 +548,105 @@ img {
 
 .dark-theme .search-result-item__info span {
     color: #999;
+}
+
+/*CODIGO TRENDING NOW PRUEBA*/
+.trending-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.trending-carousel-wrapper {
+    display: flex;
+    transition: transform 0.3s ease;
+    width: 100%;
+}
+
+.carousel-item {
+    flex: 0 0 20%; /* Para mostrar 5 items a la vez */
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.trending-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    padding: 0 20px;
+}
+
+.trending-control {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.trending-control:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.trending-control:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.trending-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.trending-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.trending-dot.active {
+    background: white;
+}
+
+/* SECCION HERO DOTS*/
+.hero-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+}
+
+.hero-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hero-dot.active {
+    background: white;
 }
