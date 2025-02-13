@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Plataforma de streaming con las últimas películas y series">
-    <title>StreamFlix</title>
+    <meta name="description" content="Las mejores series en StreamFlix">
+    <title>Series - StreamFlix</title>
     <link rel="icon" href="images/popcorn.png" type="image/png">
 
     <link rel="stylesheet" href="css/styles.css">
@@ -12,24 +12,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header y la navegacion de la pagina -->
+    <!-- Header series-->
     <header class="header">
         <nav class="nav">
             <div class="nav__logo">
-                <a href="/index.html">
+                <a href="index.html">
                     <img src="/images/LOGOSTREAMFLIX.png" alt="StreamFlix Logo">
                 </a>
             </div>
+
+
+            <div class="nav__toggle" aria-label="Abrir menú">
+                <i class="fas fa-bars"></i>
+            </div>
+
             <div class="nav__menu">
                 <ul class="nav__list">
                     <li><a href="/index.html">Inicio</a></li>
-                    <li><a href="/series.html">Series</a></li>
-                    <li><a href="index.html">Películas</a></li>
+                    <li><a href="/series.html" class="active">Series</a></li>
+                    <li><a href="/index.html">Películas</a></li>
                 </ul>
             </div>
             <div class="nav__actions">
                 <div class="search-bar">
-                    <input type="search" placeholder="Buscar títulos..." aria-label="Buscar contenido">
+                    <input type="search" placeholder="Buscar series..." aria-label="Buscar contenido">
                     <button type="button" aria-label="Iniciar búsqueda">
                         <i class="fas fa-search"></i>
                     </button>
@@ -41,47 +47,46 @@
         </nav>
     </header>
 
-    <!-- main -->
+    <!-- Main -->
     <main>
-        <!--Section Hero -->
-        <section id="featuredMovies" class="hero-section">
-            <!-- se carga dinamicamente a traves de .js -->
+        <!--  Section Hero -->
+        <section id="featuredSeries" class="hero-section hero-series">
+             <!--  se carga dinamicamente a traves de .js-->
         </section>
 
-        <!--  Section tendencias  -->
-        <section class="trending" aria-label="Tendencias">
-            <h2>Peliculas Estreno</h2>
-            <div class="carousel" id="trendingCarousel">
-                <!--  se carga dinamicamente a traves de .js-->
+        <!-- Series en Tendencia -->
+        <section class="trending" aria-label="Series en Tendencia">
+            <h2>Series en Tendencia</h2>
+            <div class="carousel" id="trendingSeriesCarousel">
+                 <!--  se carga dinamicamente a traves de .js-->
             </div>
         </section>
-        <!-- Generos -->
-        <section class="genres" aria-label="Géneros">
+
+        <!-- Géneros de Series -->
+        <section class="genres" aria-label="Géneros de Series">
             <h2>Explora por Género</h2>
-            <div class="genres-grid" id="genresList">
-                <!-- se carga dinamicamente a traves de .js -->
+            <div class="genres-grid" id="seriesGenresList">
+                 <!--  se carga dinamicamente a traves de .js-->
             </div>
         </section>   
 
-        <!-- peliculas populares -->
-        <section class="movies" aria-label="Películas populares">
-            <h2>Películas Populares</h2>
-            <div class="movies-grid" id="popularMovies">
-                <!-- se carga dinamicamente a traves de .js -->
+        <!-- Series Populares -->
+        <section class="series" aria-label="Series populares">
+            <h2>Series Populares</h2>
+            <div class="series-grid" id="popularSeries">
+                 <!--  se carga dinamicamente a traves de .js-->
             </div>
         </section>
-
-
     </main>
 
-    <!--  Modal  Detalles de Portada-->
-    <div class="modal" id="movieModal" aria-hidden="true">
+    <!--  Modal -->
+    <div class="modal" id="seriesModal" aria-hidden="true">
         <div class="modal__content">
             <button class="modal__close" aria-label="Cerrar modal">
                 <i class="fas fa-times"></i>
             </button>
             <div class="modal__body">
-                <!-- se carga dinamicamente a traves de .js-->
+                 <!--  se carga dinamicamente a traves de .js-->
             </div>
         </div>
     </div>
@@ -92,6 +97,6 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/app.js" type="module"></script>
+    <script src="js/series.js" type="module"></script>
 </body>
 </html>

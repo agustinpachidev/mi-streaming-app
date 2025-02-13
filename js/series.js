@@ -4,19 +4,19 @@ const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p';
 
 // elementos DOM
 const elements = {
-    trendingCarousel: document.getElementById('trendingCarousel'),
-    popularMovies: document.getElementById('popularMovies'),
-    genresList: document.getElementById('genresList'),
-    movieModal: document.getElementById('movieModal'),
+    trendingCarousel: document.getElementById('trendingSeriesCarousel'),
+    popularSeries: document.getElementById('popularSeries'),
+    genresList: document.getElementById('seriesGenresList'),
+    seriesModal: document.getElementById('seriesModal'),
     searchInput: document.querySelector('.search-bar input'),
     themeToggle: document.querySelector('.theme-toggle'),
-    featuredMovies: document.getElementById('featuredMovies') //  línea nueva
+    featuredSeries: document.getElementById('featuredSeries')
 };
 
 // Estado 
 const state = {
     currentTheme: 'light',
-    movies: [],
+    series: [],
     genres: []
 };
 
@@ -39,24 +39,24 @@ const getImageUrl = (path, size = 'w500') => {
     return path ? `${IMAGE_BASE_URL}/${size}${path}` : 'placeholder-image.jpg';
 };
 
-// carga de informacion de las portadas
+// Cargar series en tendencia
 const loadTrending = async () => {
-    const data = await fetchData('/trending/movie/week');
+    const data = await fetchData('/trending/tv/week');
     if (!data) return;
 
     elements.trendingCarousel.innerHTML = `
         <div class="trending-carousel-container">
             <div class="trending-carousel-wrapper">
-                ${data.results.slice(0, 20).map(movie => `
-                    <div class="carousel-item" data-movie-id="${movie.id}">
-                        <img src="${getImageUrl(movie.poster_path)}" 
-                             alt="${movie.title}"
+                ${data.results.slice(0, 20).map(series => `
+                    <div class="carousel-item" data-series-id="${series.id}">
+                        <img src="${getImageUrl(series.poster_path)}" 
+                             alt="${series.name}"
                              loading="lazy">
                         <div class="carousel-item__info">
-                            <h3>${movie.title}</h3>
+                            <h3>${series.name}</h3>
                             <span class="rating">
                                 <i class="fas fa-star"></i>
-                                ${movie.vote_average.toFixed(1)}
+                                ${series.vote_average.toFixed(1)}
                             </span>
                         </div>
                     </div>
@@ -64,10 +64,10 @@ const loadTrending = async () => {
             </div>
             
             <div class="trending-controls">
-                <button class="trending-control prev" aria-label="Anterior película en tendencia">
+                <button class="trending-control prev" aria-label="Anterior serie en tendencia">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                <button class="trending-control next" aria-label="Siguiente película en tendencia">
+                <button class="trending-control next" aria-label="Siguiente serie en tendencia">
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
@@ -76,29 +76,28 @@ const loadTrending = async () => {
                 ${data.results.slice(0, 10).map((_, index) => `
                     <button class="trending-dot ${index === 0 ? 'active' : ''}" 
                             data-slide="${index}" 
-                            aria-label="Ir a la película en tendencia ${index + 1}">
+                            aria-label="Ir a la serie en tendencia ${index + 1}">
                     </button>
                 `).join('')}
             </div>
         </div>
     `;
 
-    // Obtiene los elementos
+    // Obtener los elementos
     const carouselWrapper = elements.trendingCarousel.querySelector('.trending-carousel-wrapper');
     const items = elements.trendingCarousel.querySelectorAll('.carousel-item');
     const dots = elements.trendingCarousel.querySelectorAll('.trending-dot');
     const prevButton = elements.trendingCarousel.querySelector('.trending-control.prev');
     const nextButton = elements.trendingCarousel.querySelector('.trending-control.next');
-    
     let currentIndex = 0;
-    const itemsToShow = 5; // Número de películas visibles 
+    const itemsToShow = 5; 
     const totalItems = items.length;
 
     const showSlide = (index) => {
         
         currentIndex = Math.max(0, Math.min(index, totalItems - itemsToShow));
         
-        // Calcula el desplazamiento
+        // Calcular el desplazamiento
         const offset = -(currentIndex * (100 / itemsToShow));
         carouselWrapper.style.transform = `translateX(${offset}%)`;
         
@@ -129,27 +128,28 @@ const loadTrending = async () => {
     // Inicia el carrusel
     showSlide(0);
 };
-//SCRIPT SECCION HERO
-const loadHeroMovies = async () => {
-    const data = await fetchData('/movie/popular');
+
+// Cargar series destacadas en el hero
+const loadHeroSeries = async () => {
+    const data = await fetchData('/tv/popular');
     if (!data) return;
 
-    const heroMovies = data.results.slice(0, 5);
+    const heroSeries = data.results.slice(0, 5);
 
-    elements.featuredMovies.innerHTML = `
+    elements.featuredSeries.innerHTML = `
         <div class="hero-carousel">
-            ${heroMovies.map((movie, index) => `
+            ${heroSeries.map((series, index) => `
                 <div class="hero-slide ${index === 0 ? 'active' : ''}" 
-                     data-movie-id="${movie.id}" 
+                     data-series-id="${series.id}" 
                      style="z-index: ${index === 0 ? 1 : 0}">
-                    <img src="${getImageUrl(movie.backdrop_path, 'original')}" 
-                         alt="${movie.title}"
+                    <img src="${getImageUrl(series.backdrop_path, 'original')}" 
+                         alt="${series.name}"
                          loading="${index === 0 ? 'eager' : 'lazy'}">
                     <div class="hero-overlay"></div>
                     <div class="hero__content">
-                        <h2>${movie.title}</h2>
-                        <p>${movie.overview}</p>
-                        <button class="hero-movie__button" aria-label="Ver detalles de ${movie.title}">
+                        <h2>${series.name}</h2>
+                        <p>${series.overview}</p>
+                        <button class="hero-movie__button" aria-label="Ver detalles de ${series.name}">
                             Ver más
                         </button>
                     </div>
@@ -166,17 +166,15 @@ const loadHeroMovies = async () => {
             </div>
             
             <div class="hero-indicators">
-                ${heroMovies.map((_, index) => `
+                ${heroSeries.map((_, index) => `
                     <button class="hero-dot ${index === 0 ? 'active' : ''}" 
                             data-slide="${index}" 
-                            aria-label="Ir a la película ${index + 1}"></button>
+                            aria-label="Ir a la serie ${index + 1}"></button>
                 `).join('')}
             </div>
         </div>
     `;
-
-    // contenedor principal del carrusel
-    const carouselContainer = elements.featuredMovies.querySelector('.hero-carousel');
+    const carouselContainer = elements.featuredSeries.querySelector('.hero-carousel');
     const slides = carouselContainer.querySelectorAll('.hero-slide');
     const dots = carouselContainer.querySelectorAll('.hero-dot');
     const prevButton = carouselContainer.querySelector('.hero-control.prev');
@@ -185,6 +183,7 @@ const loadHeroMovies = async () => {
     let autoPlayInterval;
 
     const showSlide = (index) => {
+        
         const newIndex = ((index % slides.length) + slides.length) % slides.length;
         
         slides.forEach((slide, i) => {
@@ -226,7 +225,7 @@ const loadHeroMovies = async () => {
             e.preventDefault();
             showSlide(index);
             stopAutoPlay();
-            startAutoPlay(); // Reinicia el autoplay después del clic
+            startAutoPlay(); 
         });
     });
 
@@ -234,19 +233,19 @@ const loadHeroMovies = async () => {
     prevButton.addEventListener('click', () => {
         showSlide(currentSlide - 1);
         stopAutoPlay();
-        startAutoPlay();
+        startAutoPlay(); 
     });
 
     nextButton.addEventListener('click', () => {
         showSlide(currentSlide + 1);
         stopAutoPlay();
-        startAutoPlay(); 
+        startAutoPlay(); // Reinicia el autoplay después del clic
     });
 
-    // Pausa el autoplay cuando el mouse está sobre el carrusel
+    // Pausar autoplay cuando el mouse está sobre el carrusel
     carouselContainer.addEventListener('mouseenter', stopAutoPlay);
     
-    // Reanuda el autoplay cuando el mouse sale del carrusel
+    // Reanudar autoplay cuando el mouse sale del carrusel
     carouselContainer.addEventListener('mouseleave', startAutoPlay);
 
    
@@ -254,46 +253,45 @@ const loadHeroMovies = async () => {
     heroButtons.forEach(button => {
         button.addEventListener('click', () => {
             const movieId = button.closest('.hero-slide').dataset.movieId;
-            showMovieDetails(movieId);
+            showSeriesDetails(movieId);
         });
     });
 
     // Inicia el autoplay al cargar
     startAutoPlay();
 };
-//FIN DE SCRIPT SECCION HERO
 
-//SECCION PELICULAS POPULARES
-const loadPopularMovies = async () => {
-    const data = await fetchData('/movie/popular');
+// Cargar series populares
+const loadPopularSeries = async () => {
+    const data = await fetchData('/tv/popular');
     if (!data) return;
 
-    const moviesToShow = data.results.slice(0, 18);
+    const seriesToShow = data.results.slice(0, 22);
 
-    elements.popularMovies.innerHTML = moviesToShow
-        .map(movie => `
-            <div class="movie-card" data-movie-id="${movie.id}">
-                <img src="${getImageUrl(movie.poster_path)}" 
-                     alt="${movie.title}"
+    elements.popularSeries.innerHTML = seriesToShow
+        .map(series => `
+            <div class="movie-card" data-series-id="${series.id}">
+                <img src="${getImageUrl(series.poster_path)}" 
+                     alt="${series.name}"
                      loading="lazy">
                 <div class="movie-card__info">
-                    <h3>${movie.title}</h3>
+                    <h3>${series.name}</h3>
                 </div>
             </div>
         `).join('');
 
-    
-    const movieCards = document.querySelectorAll('.movie-card');
-    movieCards.forEach(card => {
+    // Event listeners para las  series
+    const seriesCards = document.querySelectorAll('.movie-card');
+    seriesCards.forEach(card => {
         card.addEventListener('click', () => {
-            showMovieDetails(card.dataset.movieId);
+            showSeriesDetails(card.dataset.seriesId);
         });
     });
 };
-//
-//SECCION GENEROS
+
+// Cargar géneros de series
 const loadGenres = async () => {
-    const data = await fetchData('/genre/movie/list');
+    const data = await fetchData('/genre/tv/list');
     if (!data) return;
 
     state.genres = data.genres;
@@ -309,94 +307,91 @@ const loadGenres = async () => {
             `).join('')}
     `;
 
-    
+    // Event listeners para los botones de género
     const genreButtons = document.querySelectorAll('.genre-button');
     genreButtons.forEach(button => {
         button.addEventListener('click', () => {
             const genreId = button.dataset.genreId;
             if (genreId === 'all') {
-                loadPopularMovies(); // Vuelve a cargar todas las películas
+                loadPopularSeries();
             } else {
-                filterMoviesByGenre(genreId);
+                filterSeriesByGenre(genreId);
             }
         });
     });
 };
-//nuevo script
-const filterMoviesByGenre = async (genreId) => {
-    const data = await fetchData(`/discover/movie?with_genres=${genreId}`);
+
+// Filtrar series por género
+const filterSeriesByGenre = async (genreId) => {
+    const data = await fetchData(`/discover/tv?with_genres=${genreId}`);
     if (!data) return;
-    const moviesToShow = data.results.slice(0, 18);
-
-    // Limpia el contenedor de películas populares
-    elements.popularMovies.innerHTML = '';
-
-    // Muestra las películas filtradas
-    elements.popularMovies.innerHTML = moviesToShow
-        .map(movie => `
-            <div class="movie-card" data-movie-id="${movie.id}">
-                <img src="${getImageUrl(movie.poster_path)}" 
-                     alt="${movie.title}"
+    
+    const seriesToShow = data.results.slice(0, 22);
+    elements.popularSeries.innerHTML = seriesToShow
+        .map(series => `
+            <div class="movie-card" data-series-id="${series.id}">
+                <img src="${getImageUrl(series.poster_path)}" 
+                     alt="${series.name}"
                      loading="lazy">
                 <div class="movie-card__info">
-                    <h3>${movie.title}</h3>
-                    
+                    <h3>${series.name}</h3>
                 </div>
             </div>
         `).join('');
 
-    // Resalta el botón del género seleccionado
-    const genreButtons = document.querySelectorAll('.genre-button');
-    genreButtons.forEach(button => {
-        if (button.dataset.genreId === genreId) {
-            button.classList.add('active');
-        } else {
-            button.classList.remove('active');
-        }
-    });
-
-    
-    const movieCards = document.querySelectorAll('.movie-card');
-    movieCards.forEach(card => {
-        card.addEventListener('click', () => {
-            showMovieDetails(card.dataset.movieId);
+        const genreButtons = document.querySelectorAll('.genre-button');
+        genreButtons.forEach(button => {
+            if (button.dataset.genreId === genreId) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
         });
-    });
+    
+        // Agrega event listeners a las nuevas tarjetas de películas
+        const movieCards = document.querySelectorAll('.movie-card');
+        movieCards.forEach(card => {
+            card.addEventListener('click', () => {
+                showSeriesDetails(card.dataset.seriesId);
+            });
+        });
 };
-//
-//muestra de detalles de la portada MODAL
-const showMovieDetails = async (movieId) => {
-    const data = await fetchData(`/movie/${movieId}`);
+
+// Mostrar detalles de la serie
+const showSeriesDetails = async (seriesId) => {
+    const data = await fetchData(`/tv/${seriesId}`);
     if (!data) return;
 
-    elements.movieModal.innerHTML = `
+    elements.seriesModal.innerHTML = `
         <div class="modal__content">
             <button class="modal__close" aria-label="Cerrar modal">
                 <i class="fas fa-times"></i>
             </button>
             <img src="${getImageUrl(data.backdrop_path, 'original')}" 
-                 alt="${data.title}">
-            <h2>${data.title}</h2>
+                 alt="${data.name}">
+            <h2>${data.name}</h2>
             <p>${data.overview}</p> 
             <div class="modal__info">
                 <span>Valoración⭐: ${data.vote_average}</span>
-                <span>Año: ${data.release_date.split('-')[0]}</span>
-                <span>Duración: ${data.runtime} min</span>
+                <span>Año: ${data.first_air_date.split('-')[0]}</span>
+                <span>Temporadas: ${data.number_of_seasons}</span>
+                <span>Episodios: ${data.number_of_episodes}</span>
             </div>
         </div>
     `;
-    elements.movieModal.setAttribute('aria-hidden', 'false');
     
-    const closeButton = elements.movieModal.querySelector('.modal__close');
+    elements.seriesModal.setAttribute('aria-hidden', 'false');
+    
+    const closeButton = elements.seriesModal.querySelector('.modal__close');
     closeButton.addEventListener('click', closeModal);
     document.addEventListener('keydown', handleEscapeKey);
-    elements.movieModal.addEventListener('click', handleOutsideClick);
+    elements.seriesModal.addEventListener('click', handleOutsideClick);
 };
 
 const closeModal = () => {
-    elements.movieModal.setAttribute('aria-hidden', 'true');
+    elements.seriesModal.setAttribute('aria-hidden', 'true');
     document.removeEventListener('keydown', handleEscapeKey);
-    elements.movieModal.removeEventListener('click', handleOutsideClick);
+    elements.seriesModal.removeEventListener('click', handleOutsideClick);
 };
 
 const handleEscapeKey = (e) => {
@@ -406,15 +401,17 @@ const handleEscapeKey = (e) => {
 };
 
 const handleOutsideClick = (e) => {
-    if (e.target === elements.movieModal) {
+    if (e.target === elements.seriesModal) {
         closeModal();
     }
 };
-// busqueda de portadas
-const searchMovies = async (query) => {
+
+
+// Búsqueda de series
+const searchSeries = async (query) => {
     try {
-        console.log('Buscando:', query);
-        const data = await fetchData(`/search/movie?query=${encodeURIComponent(query)}`);
+        console.log('Buscando series:', query);
+        const data = await fetchData(`/search/tv?query=${encodeURIComponent(query)}`);
         console.log('Resultados:', data);
         
         if (!data || !data.results) return;
@@ -429,7 +426,7 @@ const searchMovies = async (query) => {
         if (data.results.length === 0) {
             searchResults.innerHTML = `
                 <div class="search-results__message">
-                    No se encontraron resultados para "${query}"
+                    No se encontraron series para "${query}"
                 </div>
             `;
             searchResults.style.display = 'block';
@@ -438,14 +435,14 @@ const searchMovies = async (query) => {
 
         searchResults.innerHTML = `
             <div class="search-results__content">
-                ${data.results.slice(0, 5).map(movie => `
-                    <div class="search-result-item" data-movie-id="${movie.id}">
-                        <img src="${getImageUrl(movie.poster_path, 'w92')}" 
-                             alt="${movie.title}"
+                ${data.results.slice(0, 5).map(series => `
+                    <div class="search-result-item" data-series-id="${series.id}">
+                        <img src="${getImageUrl(series.poster_path, 'w92')}" 
+                             alt="${series.name}"
                              onerror="this.src='placeholder.jpg'">
                         <div class="search-result-item__info">
-                            <h4>${movie.title}</h4>
-                            <span>${movie.release_date ? movie.release_date.split('-')[0] : 'N/A'}</span>
+                            <h4>${series.name}</h4>
+                            <span>${series.first_air_date ? series.first_air_date.split('-')[0] : 'N/A'}</span>
                         </div>
                     </div>
                 `).join('')}
@@ -456,23 +453,23 @@ const searchMovies = async (query) => {
         const resultItems = searchResults.querySelectorAll('.search-result-item');
         resultItems.forEach(item => {
             item.addEventListener('click', () => {
-                showMovieDetails(item.dataset.movieId);
+                showSeriesDetails(item.dataset.seriesId);
                 searchResults.style.display = 'none';
                 elements.searchInput.value = '';
             });
         });
     } catch (error) {
-        console.error('Error en la búsqueda:', error);
+        console.error('Error en la búsqueda de series:', error);
     }
 };
-//EVENTOS
 const setupEventListeners = () => {
+    // Alterna la pagina tema oscuro/claro
     elements.themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-theme');
         state.currentTheme = state.currentTheme === 'light' ? 'dark' : 'light';
         localStorage.setItem('theme', state.currentTheme);
     });
-
+     // Búsqueda con debounce
     elements.searchInput.addEventListener('input', debounce(async (e) => {
         const query = e.target.value.trim();
         const searchResults = document.querySelector('.search-results');
@@ -482,9 +479,9 @@ const setupEventListeners = () => {
             return;
         }
         
-        await searchMovies(query);
+        await searchSeries(query);
     }, 500));
-
+    // Cierra  haciendo click afuera
     document.addEventListener('click', (e) => {
         const searchResults = document.querySelector('.search-results');
         const searchContainer = elements.searchInput.parentElement;
@@ -493,7 +490,7 @@ const setupEventListeners = () => {
             searchResults.style.display = 'none';
         }
     });
-
+    // Cierra búsqueda con la tecla Escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             const searchResults = document.querySelector('.search-results');
@@ -501,15 +498,26 @@ const setupEventListeners = () => {
             elements.searchInput.value = '';
         }
     });
-
+    // muestra detalles de la serie al hacer clic en una tarjeta
     document.addEventListener('click', (e) => {
-        const movieCard = e.target.closest('[data-movie-id]');
-        if (movieCard) {
-            showMovieDetails(movieCard.dataset.movieId);
+        const seriesCard = e.target.closest('[data-series-id]');
+        if (seriesCard) {
+            showSeriesDetails(seriesCard.dataset.seriesId);
         }
     });
+
+        //boton hamburguesa para el nav
+        const toggleButton = document.querySelector(".nav__toggle");
+        const menu = document.querySelector(".nav__menu");
+    
+        if (toggleButton && menu) {
+            toggleButton.addEventListener("click", () => {
+                menu.classList.toggle("active");
+            });
+        }
+
 };
-//controla los cambios de la pagina
+
 const debounce = (func, wait) => {
     let timeout;
     return function executedFunction(...args) {
@@ -521,7 +529,8 @@ const debounce = (func, wait) => {
         timeout = setTimeout(later, wait);
     };
 };
-//INICIALIZA TODOS LOS MODULOS
+
+//INICIA TODOS LOS MODULOS
 const init = async () => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     if (savedTheme === 'dark') {
@@ -531,9 +540,9 @@ const init = async () => {
 
     await Promise.all([
         loadTrending(),
-        loadPopularMovies(),
+        loadPopularSeries(),
         loadGenres(),
-        loadHeroMovies()
+        loadHeroSeries()
     ]);
 
     setupEventListeners();
