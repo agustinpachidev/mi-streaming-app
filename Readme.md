@@ -14,20 +14,21 @@ Incorpora una **ventana Modal** para filtrar la información y mostrar la portad
 La página fue diseñada de la siguiente manera:
 
 ### Diseño y Maquetación 🎨  
-- 🖌️ **Diseño Visual**: El diseño es atractivo y moderno, siguiendo buenas prácticas de UI/UX. Puedes usar herramientas como Figma para elaborar el prototipo previo.  
-- 🌐 **Estructura HTML Semántica**: Emplea etiquetas semánticas para mejorar la accesibilidad y SEO.  
-- 🎨 **CSS y Preprocesadores**: Utiliza CSS puro o preprocesadores (SASS/SCSS) para estilizar el proyecto. Se recomienda usar metodologías de organización (BEM, OOCSS) para mantener el código ordenado.  
-- 📱 **Diseño Responsivo**: La interfaz se adapta a distintos tamaños de pantalla (móvil, tablet y escritorio).  
+- 🖌️ **Diseño Visual**: El diseño es moderno y atractivo, siguiendo las mejores prácticas de UI/UX. 
+- 🌐 **Estructura HTML Semántica**: Se emplearon etiquetas semánticas para mejorar la accesibilidad y SEO, garantizando una estructura lógica y fácil de navegar.  
+- 🎨 **CSS y Preprocesadores**: Se utilizó **CSS** para estilizar el proyecto, aplicando metodologías de organización **BEM** para mantener el código limpio y ordenado.  
+- 📱 **Diseño Responsivo**: La interfaz está optimizada para adaptarse a diferentes tamaños de pantalla (móvil, tablet y escritorio), asegurando una experiencia fluida en todos los dispositivos.  
 
 ### Funcionalidad Dinámica ⚙️  
-- 🌐 **Consumo de API**: Implementa la integración con la API de TMDb para cargar de forma dinámica una lista de películas o series.  
+- 🌐 **Consumo de API**: La página se integra con la **API de TMDb** para cargar dinámicamente las listas de películas y series, garantizando contenido siempre actualizado.  
 - 🎡 **Interactividad**:  
-    - 🌀 Muestra un **carrusel horizontal** de imágenes (por ejemplo, "Trending Now") con animaciones suaves.  
-    - 🎬 Al hacer clic sobre una película, despliega un **modal** o redirige a una vista con más detalles (descripción, valoración, etc.).  
-- 🔎 **Filtros y Búsqueda**: Permite filtrar el contenido por categorías (por ejemplo, género, popularidad) y/o realizar búsquedas por título.  
+    - 🌀 Un **carrusel horizontal** de imágenes (por ejemplo, "Trending Now") presenta el contenido de manera atractiva con animaciones suaves.  
+    - 🎬 Al hacer clic sobre una película, se despliega un **modal** o se redirige a una vista con más detalles (como descripción, valoración, etc.).  
+- 🔎 **Filtros y Búsqueda**: Se implementaron filtros avanzados para permitir la búsqueda por categorías (género, popularidad) y por título, mejorando la navegación y personalización del contenido.  
 
 ### Accesibilidad y Buenas Prácticas ♿  
-- 📝 **Accesibilidad**: Asegúrate de incluir atributos ARIA, texto alternativo para imágenes y un orden de navegación lógico.  
-- ⚡ **Performance**: Optimiza imágenes y recursos para lograr tiempos de carga rápidos.  
-- 🌙 **Modo Oscuro/Claro**: Implementa un **toggle** para cambiar entre temas, mejorando la experiencia de usuario.  
+- 📝 **Accesibilidad**: Se incluyeron atributos **ARIA** y texto alternativo para imágenes, con un orden de navegación lógico para garantizar que la página sea accesible para todos los usuarios.  
+- ⚡ **Performance**: Se optimizaron imágenes y recursos para asegurar tiempos de carga rápidos y mejorar la experiencia de usuario.  
+- 🌙 **Modo Oscuro/Claro**: Se implementó un **toggle** para alternar entre los modos oscuro y claro, permitiendo al usuario personalizar su experiencia visual.  
+
 
